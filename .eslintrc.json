@@ -31,8 +31,7 @@
     "react",
     "react-hooks",
     "@typescript-eslint",
-    "tailwindcss",
-    "prettier-plugin-tailwindcss"
+    "tailwindcss"
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
