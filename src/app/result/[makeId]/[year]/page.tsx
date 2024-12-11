@@ -23,7 +23,7 @@ export default async function Result({
           content={`List of vehicle models for make ${makeName} in the year ${params.year}`}
         />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className="flex min-h-screen flex-col items-center justify-between lg:p-24">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6">
             Vehicle Models for {makeName} in year {params.year}
