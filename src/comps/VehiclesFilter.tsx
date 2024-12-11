@@ -37,10 +37,13 @@ export default function VehicleFilter() {
   }
 
   return (
-    <div>
+    <div className="rounded-md bg-white p-10 flex flex-col gap-4 shadow-md mt-5 lg:m-24">
       <div>
-        <label htmlFor="make-select">Select Make: </label>
+        <label className="w-full block" htmlFor="make-select">
+          Select Make:{" "}
+        </label>
         <select
+          className="w-full rounded-md"
           id="make-select"
           value={selectedMakeId}
           onChange={(e) => setSelectedMakeId(e.target.value)}
@@ -55,8 +58,11 @@ export default function VehicleFilter() {
       </div>
 
       <div>
-        <label htmlFor="model-year-select">Select model year:</label>
+        <label className="w-full block" htmlFor="model-year-select">
+          Select model year:
+        </label>
         <select
+          className="w-full rounded-md"
           id="model-year-select"
           value={selectedModelYear}
           onChange={(e) => setSelectedModelYear(e.target.value)}
@@ -72,7 +78,7 @@ export default function VehicleFilter() {
 
       <Link
         href={`/result/${selectedMakeId}/${selectedModelYear}`}
-        className={`${!isNextLinkActive ? "link--inactive" : "link--active"}`}
+        className={`p-1 mt-6 rounded-md text-center w-full bg-gray-400 ${!isNextLinkActive ? "text-gray-300 pointer-events-none" : "text-black hover:bg-gray-300 hover:text-gray-500 duration-300 transition-all ease-in-out"}`}
         onClick={(e) => {
           if (!isNextLinkActive) {
             e.preventDefault();
