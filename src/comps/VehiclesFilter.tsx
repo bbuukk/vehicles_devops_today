@@ -1,14 +1,27 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getVehicles } from "@/api";
+import { Vehicle } from "@/types";
 
 export default function VehicleFilter() {
-  const { Results: vehicles } = use(getVehicles());
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [selectedMakeId, setSelectedMakeId] = useState("");
+  const [selectedModelYear, setSelectedModelYear] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [selectedMakeId, setSelectedMakeId] = useState<string>("");
-  const [selectedModelYear, setSelectedModelYear] = useState<string>("");
+  useEffect(() => {
+    getVehicles()
+      .then(({ Results }) => {
+        setVehicles(Results);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching vehicles:", error);
+        setIsLoading(false);
+      });
+  }, []);
 
   const currentYear = new Date().getFullYear();
   const modelYears = Array.from(
@@ -19,17 +32,20 @@ export default function VehicleFilter() {
   const isNextLinkActive =
     Boolean(selectedMakeId) && Boolean(selectedModelYear);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      <p>{selectedMakeId}</p>
-      <p>{selectedModelYear}</p>
       <div>
         <label htmlFor="make-select">Select Make: </label>
         <select
           id="make-select"
+          value={selectedMakeId}
           onChange={(e) => setSelectedMakeId(e.target.value)}
         >
-          <option value={""}>Unselected</option>
+          <option value="">Unselected</option>
           {vehicles.map((v) => (
             <option key={v.MakeId} value={v.MakeId}>
               {v.MakeName}
@@ -45,10 +61,10 @@ export default function VehicleFilter() {
           value={selectedModelYear}
           onChange={(e) => setSelectedModelYear(e.target.value)}
         >
-          <option value={""}>Unselected</option>
-          {modelYears.map((make) => (
-            <option key={make} value={make}>
-              {make}
+          <option value="">Unselected</option>
+          {modelYears.map((year) => (
+            <option key={year} value={year}>
+              {year}
             </option>
           ))}
         </select>
