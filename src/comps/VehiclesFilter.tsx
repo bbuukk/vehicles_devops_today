@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { getVehicles } from "@/api";
-import { Vehicle } from "@/types";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { getVehicles } from '@/api';
+import { Vehicle } from '@/types';
 
 export default function VehicleFilter() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [selectedMakeId, setSelectedMakeId] = useState("");
-  const [selectedModelYear, setSelectedModelYear] = useState("");
+  const [selectedMakeId, setSelectedMakeId] = useState('');
+  const [selectedModelYear, setSelectedModelYear] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function VehicleFilter() {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching vehicles:", error);
+        console.error('Error fetching vehicles:', error);
         setIsLoading(false);
       });
   }, []);
@@ -26,7 +26,7 @@ export default function VehicleFilter() {
   const currentYear = new Date().getFullYear();
   const modelYears = Array.from(
     { length: currentYear - 2015 + 1 },
-    (_, index) => currentYear - index,
+    (_, index) => currentYear - index
   );
 
   const isNextLinkActive =
@@ -37,11 +37,12 @@ export default function VehicleFilter() {
   }
 
   return (
-    <div className="rounded-md bg-white p-10 flex flex-col gap-4 shadow-md mt-5 lg:m-24">
+    <div className="mt-5 flex flex-col gap-4 rounded-md bg-white p-10 shadow-md lg:m-24">
       <div>
-        <label className="w-full block" htmlFor="make-select">
-          Select Make:{" "}
+        <label className="block w-full" htmlFor="make-select">
+          Select Make:{' '}
         </label>
+
         <select
           className="w-full rounded-md"
           id="make-select"
@@ -49,6 +50,7 @@ export default function VehicleFilter() {
           onChange={(e) => setSelectedMakeId(e.target.value)}
         >
           <option value="">Unselected</option>
+
           {vehicles.map((v) => (
             <option key={v.MakeId} value={v.MakeId}>
               {v.MakeName}
@@ -58,9 +60,10 @@ export default function VehicleFilter() {
       </div>
 
       <div>
-        <label className="w-full block" htmlFor="model-year-select">
+        <label className="block w-full" htmlFor="model-year-select">
           Select model year:
         </label>
+
         <select
           className="w-full rounded-md"
           id="model-year-select"
@@ -68,6 +71,7 @@ export default function VehicleFilter() {
           onChange={(e) => setSelectedModelYear(e.target.value)}
         >
           <option value="">Unselected</option>
+
           {modelYears.map((year) => (
             <option key={year} value={year}>
               {year}
@@ -78,7 +82,7 @@ export default function VehicleFilter() {
 
       <Link
         href={`/result/${selectedMakeId}/${selectedModelYear}`}
-        className={`p-1 mt-6 rounded-md text-center w-full bg-gray-400 ${!isNextLinkActive ? "text-gray-300 pointer-events-none" : "text-black hover:bg-gray-300 hover:text-gray-500 duration-300 transition-all ease-in-out"}`}
+        className={`mt-6 w-full rounded-md bg-gray-400 p-1 text-center ${!isNextLinkActive ? 'pointer-events-none text-gray-300' : 'text-black transition-all duration-300 ease-in-out hover:bg-gray-300 hover:text-gray-500'}`}
         onClick={(e) => {
           if (!isNextLinkActive) {
             e.preventDefault();

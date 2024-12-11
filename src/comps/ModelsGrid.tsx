@@ -1,4 +1,4 @@
-import { ModelsData } from "@/hooks/useGetVehicleModels";
+import { ModelsData } from '@/hooks/useGetVehicleModels';
 
 export default function VehiclesModelsGrid({ models, error }: ModelsData) {
   if (error) {
@@ -11,12 +11,12 @@ export default function VehiclesModelsGrid({ models, error }: ModelsData) {
 
   return (
     <ul
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center"
+      className="grid grid-cols-1 gap-4 text-center md:grid-cols-2 lg:grid-cols-3"
       role="list"
     >
       {models.map((model) => (
-        <li key={model.Model_ID} className="bg-white shadow-md rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">{model.Model_Name}</h2>
+        <li key={model.Model_ID} className="rounded-lg bg-white p-4 shadow-md">
+          <h2 className="mb-2 text-xl font-semibold">{model.Model_Name}</h2>
         </li>
       ))}
     </ul>

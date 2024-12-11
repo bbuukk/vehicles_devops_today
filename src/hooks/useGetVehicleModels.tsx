@@ -1,5 +1,5 @@
-import { getModelsForMakeIdYear } from "@/api";
-import { modelsForMakeIdYearRequestParams, VehicleModel } from "@/types";
+import { getModelsForMakeIdYear } from '@/api';
+import { modelsForMakeIdYearRequestParams, VehicleModel } from '@/types';
 
 export interface ModelsData {
   models: VehicleModel[];
@@ -7,18 +7,18 @@ export interface ModelsData {
 }
 
 export async function getVehicleModels(
-  params: modelsForMakeIdYearRequestParams,
+  params: modelsForMakeIdYearRequestParams
 ): Promise<ModelsData> {
   try {
     const { Results } = await getModelsForMakeIdYear(params);
     return {
       models: Results,
-      error: null,
+      error: null
     };
   } catch (err) {
     return {
       models: [],
-      error: "Failed to fetch vehicle models. Please try again later.",
+      error: 'Failed to fetch vehicle models. Please try again later.'
     };
   }
 }

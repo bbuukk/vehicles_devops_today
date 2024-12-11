@@ -28,5 +28,5 @@ export type {
   ApiResponse,
   Vehicle,
   modelsForMakeIdYearRequestParams,
-  VehicleModel,
+  VehicleModel
 };
